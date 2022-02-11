@@ -105,7 +105,7 @@ while(1):
     if temperature > Templimit:
         if maxdischarge == -1:
             print("Temperatur ist höher als 50C°, Limit wird aktiviert\n")
-            client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value":' + str(Wattlimit + '}')
+            client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value":' + str(Wattlimit) + '}')
         else:
             print("Temperatur ist noch immer höher als 50°C, behalte Limit bei\n")
     else:
