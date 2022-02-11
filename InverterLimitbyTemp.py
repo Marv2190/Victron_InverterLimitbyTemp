@@ -7,7 +7,7 @@ import json
 
 verbunden = 0
 cerboserial = "123456789"    # Ist auch gleich VRM Portal ID
-broker_address = "192.168.1.xxx
+broker_address = "192.168.1.xxx"
 temptopic = "temperature/25"
 
 #  Einstellen der Limits
