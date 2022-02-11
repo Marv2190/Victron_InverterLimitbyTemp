@@ -7,7 +7,7 @@ import json
 
 verbunden = 0
 cerboserial = "123456789"    # Ist auch gleich VRM Portal ID
-broker_address = "192.168.1.xxx"
+broker_address = "192.168.1.xxx
 temptopic = "temperature/25"
 
 #  Einstellen der Limits
@@ -96,16 +96,16 @@ time.sleep(2)
 client.publish("R/" + cerboserial + "/" + temptopic + "/CustomName",'{}')
 while(1):
 
-    time.sleep(10)
+    time.sleep(60)
     print("Lese folgenden TemperaturSensor aus: " + (tempname))
     print("Aktuelle Temperatur: " + str(temperature))
     print("Aktuelles Limit: " + str(maxdischarge) + ", (-1 = kein Limit)")
     durchlauf = durchlauf + 1
     print("Dies ist Durchlauf " + str(durchlauf) +" des InverterLimitbyTemp Programm")
-    if temperature > 50:
+    if temperature > Templimit:
         if maxdischarge == -1:
             print("Temperatur ist höher als 50C°, Limit wird aktiviert\n")
-            client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value": 3000}')
+            client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value":' + str(Wattlimit + '}')
         else:
             print("Temperatur ist noch immer höher als 50°C, behalte Limit bei\n")
     else:
