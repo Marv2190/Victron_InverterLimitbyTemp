@@ -86,7 +86,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 client.connect(broker_address)  # connect to broker
 
-logging.debug("Programm MinSoc by Month wurde gestartet")
+logging.debug("Programm InverterLimitbyTemp wurde gestartet")
 
 client.loop_start()
 time.sleep(2)
