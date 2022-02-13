@@ -1,4 +1,4 @@
-# Dieses Script versucht die SOC an die Gegebenheit(Volt) der Akkus anzupassen
+# Dieses Script limitiert die Inverterleistung, sobald der Sensor eine zu hohe Kabeltemperatur misst.
 import time
 import paho.mqtt.client as mqtt
 import datetime
