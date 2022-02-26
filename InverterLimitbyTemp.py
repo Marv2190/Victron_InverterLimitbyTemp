@@ -95,22 +95,25 @@ time.sleep(2)
 #client.publish("R/" + cerboserial + "/" + temptopic + "/Temperature")
 client.publish("R/" + cerboserial + "/" + temptopic + "/CustomName",'{}')
 while(1):
-
-    time.sleep(60)
-    print("Lese folgenden TemperaturSensor aus: " + (tempname))
-    print("Aktuelle Temperatur: " + str(temperature))
-    print("Aktuelles Limit: " + str(maxdischarge) + ", (-1 = kein Limit)")
-    durchlauf = durchlauf + 1
-    print("Dies ist Durchlauf " + str(durchlauf) +" des InverterLimitbyTemp Programm")
-    if temperature > Templimit:
-        if maxdischarge == -1:
-            print("Temperatur ist höher als 50C°, Limit wird aktiviert\n")
-            client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value":' + str(Wattlimit) + '}')
+    try:
+        time.sleep(60)
+        print("Lese folgenden TemperaturSensor aus: " + (tempname))
+        print("Aktuelle Temperatur: " + str(temperature))
+        print("Aktuelles Limit: " + str(maxdischarge) + ", (-1 = kein Limit)")
+        durchlauf = durchlauf + 1
+        print("Dies ist Durchlauf " + str(durchlauf) +" des InverterLimitbyTemp Programm")
+        if temperature >= Templimit:
+            if maxdischarge == -1:
+                print("Temperatur ist höher als 50C°, Limit wird aktiviert\n")
+                client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value":' + str(Wattlimit) + '}')
+            else:
+                print("Temperatur ist noch immer höher als 50°C, behalte Limit bei\n")
         else:
-            print("Temperatur ist noch immer höher als 50°C, behalte Limit bei\n")
-    else:
-        if maxdischarge == -1:
-            print("Aktuelle Temperatur ist unter 50°C, daher wird kein Limit aktiviert\n")
-        else:
-            print("Aktuelle Temperatur ist unter 50°C, daher wird das Limit wieder deaktiviert\n")
-            client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value": -1}')
+            if maxdischarge == -1:
+                print("Aktuelle Temperatur ist unter 50°C, daher wird kein Limit aktiviert\n")
+            else:
+                print("Aktuelle Temperatur ist unter 50°C, daher wird das Limit wieder deaktiviert\n")
+                client.publish("W/" + cerboserial + "/settings/0/Settings/CGwacs/MaxDischargePower",'{"value": -1}')
+    except Exception as e:
+        logging.exception("InverterLimitbyTemp ist abgestürzt. (while Schleife)")
+        print(e)
